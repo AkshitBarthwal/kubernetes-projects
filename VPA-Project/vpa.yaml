@@ -1,0 +1,30 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: nginx-vpa
+  namespace: vpa-demo
+
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-vpa
+
+  updatePolicy:
+    updateMode: Auto
+
+  resourcePolicy:
+    containerPolicies:
+    - containerName: nginx
+
+      minAllowed:
+        cpu: 20m
+        memory: 30Mi
+
+      maxAllowed:
+        cpu: "1"
+        memory: 500Mi
+
+      controlledResources:
+      - cpu
+      - memory

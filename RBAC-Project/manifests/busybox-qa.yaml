@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: busybox-qa
+  namespace: qa
+  labels:
+    app: busybox
+
+spec:
+  serviceAccountName: qa-sa
+
+  containers:
+  - name: busybox
+    image: busybox:latest
+
+    command:
+      - sleep
+      - "3600"
